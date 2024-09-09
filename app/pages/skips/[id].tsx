@@ -1,6 +1,10 @@
+import { Button, Card, Icon } from '@rneui/themed';
 import { useLocalSearchParams, router } from 'expo-router';
-import { View, Text, StyleSheet, Button } from 'react-native';
-
+import { Key } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { Header } from '@rneui/themed';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function SkipDetail() {
   const { id } = useLocalSearchParams();
@@ -16,14 +20,26 @@ export default function SkipDetail() {
 
   return (
     <View style={styles.container}>
-      <Button title='Back' onPress={() => router.back()}>
-
-      </Button>
-      {/* TODO = Add image */}
-      <Text>ID: {id}</Text>
-      <Text>{EXAMPLE_DATA.title}</Text>
-      <Text>Location: {EXAMPLE_DATA.location}</Text>
-      <Text>Description: {EXAMPLE_DATA.description}</Text>
+      <SafeAreaProvider>
+      <Header
+        backgroundColor='black'
+        leftComponent={
+          <Icon name="arrow-left" color="white" onPress={() => router.back()}></Icon>
+        }
+      rightComponent={
+          <View>
+            {/* <TouchableOpacity> */}
+            {/* </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginLeft: 10 }}
+            > */}
+              <Icon type="antdesign" name="rocket1" color="white" />
+            {/* </TouchableOpacity> */}
+          </View>
+      }
+      centerComponent={{ text: EXAMPLE_DATA.title, style: styles.heading }}
+    />
+    </SafeAreaProvider>
     </View>
   );
 }
@@ -31,7 +47,27 @@ export default function SkipDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
+    backgroundColor: 'white',
+    height: "100%"
+  },
+  item: {
+    backgroundColor: '#FAF9F6',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#D3D3D3'
+  },
+  scrollView: {
     backgroundColor: 'white'
   },
+  heading: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  headerBar: {
+    backgroundColor: 'black'
+  }
 });
