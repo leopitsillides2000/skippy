@@ -7,7 +7,7 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import SkipItems from '@/components/SkipItems';
-import { SearchBar } from '@rneui/themed';
+import { Header, Icon, SearchBar } from '@rneui/themed';
 
 interface Search {
   value: string
@@ -15,22 +15,34 @@ interface Search {
 
 export default function Explore() {
   const [search, setSearch]= React.useState<Search>({value: ''})
+  const [searchVisible, setSearchVisible]= React.useState<Boolean>(false)
 
   const searchFunction = (text: string ) => {
     setSearch({value: text})
   };
 
+  const toggleSearchBar = () => {
+    setSearchVisible(!searchVisible)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <SearchBar
+      <Header
+        containerStyle={styles.headerBar}
+        leftComponent={{ text: 'Skippy', style: styles.heading }}
+        rightComponent={<Icon name={searchVisible ? "cancel": "search"} color="black" onPress={toggleSearchBar} />}
+      />
+
+      {searchVisible ? <SearchBar
         placeholder="Search Here..."
         round
         value={search.value}
         onChangeText={(text: string) => searchFunction(text)}
         autoCorrect={false}
-        containerStyle={{backgroundColor: 'black'}}
+        inputContainerStyle={{backgroundColor: '#FAF9F6'}}
+        containerStyle={{...styles.headerBar, borderTopColor: 'white', backgroundColor: 'white'}}
         // inputStyle={{backgroundColor: 'white'}}
-      />
+      /> : null}
       {/* <ScrollView style={styles.scrollView}> */}
         <SkipItems/>
       {/* </ScrollView> */}
@@ -63,4 +75,20 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  heading: {
+    color: 'black',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  headerBar: {
+    backgroundColor: 'white',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+  },
+  searchBar: {
+    backgroundColor: 'white',
+    borderBottomColor: 'lightgray',
+    borderBottomWidth: 1, 
+    borderTopColor: 'white', 
+  }
 });
