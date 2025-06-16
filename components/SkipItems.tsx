@@ -55,24 +55,48 @@ export const DATA = [
   },
 ];
 
-type ItemProps = {uuid: string, title: string, description: string};
+type ItemProps = { uuid: string, title: string, description: string };
 
-const SkipItem = ({uuid, title, description}: ItemProps) => (
-  
-  <View>
-    <Link href={{
-    pathname: '/pages/skips/[id]',
-    params: { id: uuid }
-  }}
-  style={styles.item}
-  >
-    {/* <Image
-        source={require('../assets/images/skip-test-image.jpg')}
-        style={{resizeMode: 'contain'}}
-      /> */}
-    <Text style={styles.title}>{title}</Text>
-    <Text>{description}</Text>
-    </Link>
+const SkipItem = ({ uuid, title, description }: ItemProps) => (
+
+  <View
+    style={[
+      styles.item,
+      {
+        // Try setting `flexDirection` to `"row"`.
+        flexDirection: 'row',
+      },
+    ]}>
+
+    {/* <Link href={{
+      pathname: '/pages/skips/[id]',
+      params: { id: uuid }
+    }}
+      style={[
+      styles.item,
+      {
+        // Try setting `flexDirection` to `"row"`.
+        flexDirection: 'row',
+      },
+    ]}
+    > */}
+
+    <Image
+      source={require('../assets/images/skip-test-image.jpg')}
+      style={{ width: '40%', aspectRatio: 1 }}
+    />
+    <View
+      style={[
+        {
+          // Try setting `flexDirection` to `"row"`.
+          flexDirection: 'column',
+          margin: 4
+        },
+      ]}>
+      <Text style={styles.title}>{title}</Text>
+      <Text>{description}</Text>
+    </View>
+    {/* </Link> */}
   </View>
 
 );
@@ -82,7 +106,7 @@ const SkipItems = () => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={DATA}
-        renderItem={({item}) => <SkipItem uuid={item.uuid} title={item.title} description={item.description} />}
+        renderItem={({ item }) => <SkipItem uuid={item.uuid} title={item.title} description={item.description} />}
         keyExtractor={item => item.uuid}
         style={styles.scrollView}
       />
@@ -97,10 +121,10 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#FAF9F6',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 20,
+    // padding: 20,
+    marginTop: 8,
+    // marginHorizontal: 16,
+    // borderRadius: 20,
     borderWidth: 1,
     borderColor: '#D3D3D3'
   },
@@ -108,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
   },
 });
 
